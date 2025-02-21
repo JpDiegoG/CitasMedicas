@@ -4,6 +4,10 @@
  */
 package Vista.pacientes;
 
+import Controlador.PacienteControlador;
+import Modelo.PacienteModelo;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USUARIO
@@ -47,6 +51,11 @@ public class Ingresar extends javax.swing.JInternalFrame {
         cbx_sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HOMBRE", "MUJER" }));
 
         btn_guadar.setText("GUARDAR");
+        btn_guadar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guadarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,6 +105,20 @@ public class Ingresar extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_guadarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guadarActionPerformed
+        // TODO add your handling code here:
+        String cedula=txt_cedula.getText();
+        String nombres=txt_Nombres.getText();
+        int edad=Integer.parseInt(txt_edad.getText());
+        boolean sexo=cbx_sexo.getSelectedItem().toString().equals("HOMBRE");
+        
+        PacienteControlador pacienteControlador=PacienteControlador.getInstancia();
+        
+        PacienteModelo pm=pacienteControlador.guardarDatos(cedula, nombres, edad, sexo);
+        JOptionPane.showMessageDialog(this, pm.getNombres()+ " INGRESADO CORRECTAMENTE.");
+              
+    }//GEN-LAST:event_btn_guadarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

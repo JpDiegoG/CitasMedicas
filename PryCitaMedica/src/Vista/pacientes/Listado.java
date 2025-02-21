@@ -1,20 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package Vista.pacientes;
+
+import Controlador.PacienteControlador;
+import Modelo.PacienteModelo;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author USUARIO
  */
 public class Listado extends javax.swing.JInternalFrame {
-
+    public DefaultTableModel tableModel= new DefaultTableModel();
     /**
      * Creates new form Ingresar
      */
     public Listado() {
         initComponents();
+        tbl_listado.setModel(tableModel);
+        String columnas[]= {"CEDULA","NOMBRES","EDAD","SEXO"};
+        tableModel.setColumnIdentifiers(columnas);
+        
+        PacienteControlador pc= PacienteControlador.getInstancia();
+        for (PacienteModelo pm : pc.listadoCompleto()) {
+            Object[]fila={pm.getCedula(),pm.getNombres(),pm.getEdad(),pm.getSexo()};
+            tableModel.addRow(fila);
+        }
     }
 
     /**
